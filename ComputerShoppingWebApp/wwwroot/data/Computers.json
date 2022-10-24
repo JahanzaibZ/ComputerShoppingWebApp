@@ -1,4 +1,4 @@
-{
+[
   {
     "id": 1,
     "brand": "Dell",
@@ -35,4 +35,4 @@
     "model": "G15 5515",
     "category": "Laptop"
   }
-}
+]

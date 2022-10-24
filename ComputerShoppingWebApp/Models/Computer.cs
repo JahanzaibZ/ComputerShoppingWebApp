@@ -16,7 +16,7 @@ namespace ComputerShoppingWebApp.Models
 
         [JsonPropertyName("category")]
         public int computerCategory { get; set; }
-
+        
         public override string ToString()
         {
             return JsonSerializer.Serialize<Computer>(this);

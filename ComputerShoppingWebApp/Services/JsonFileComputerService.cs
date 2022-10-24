@@ -7,9 +7,9 @@ using System.Text.Json;
 
 namespace ComputerShoppingWebApp.Services
 {
-    public class JsonComputerFile
+    public class JsonFileComputerService
     {
-        public JsonComputerFile(IWebHostEnvironment webHostEnvironment)
+        public JsonFileComputerService(IWebHostEnvironment webHostEnvironment)
         {
             WebHostEnvironment = webHostEnvironment;
         }
@@ -19,11 +19,11 @@ namespace ComputerShoppingWebApp.Services
         {
             get
             {
-                return Path.Combine(WebHostEnvironment.WebRootPath,"data","computers.json");
+                return Path.Combine(WebHostEnvironment.WebRootPath,"data", "Computers.json");
             }
         }
 
-        public IEnumerable<Computer> getComputersData()
+        public IEnumerable<Computer> getComputersRecord()
         {
             using(var jsonFile = File.OpenText(JsonFilePath))
             {
