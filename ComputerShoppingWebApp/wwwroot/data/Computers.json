@@ -1,0 +1,38 @@
+{
+  {
+    "id": 1,
+    "brand": "Dell",
+    "model": "Latitude E6440",
+    "category": "Laptop"
+  },
+  {
+    "id": 2,
+    "brand": "HP",
+    "model": "15s-DU1520TU",
+    "category": "Laptop"
+  },
+  {
+    "id": 3,
+    "brand": "HP",
+    "model": "14s-DQ5000NIA",
+    "category": "Laptop"
+  },
+  {
+    "id": 4,
+    "brand": "Dell",
+    "model": "Inspiron 14 7420",
+    "category": "Laptop"
+  },
+  {
+    "id": 5,
+    "brand": "Lenovo",
+    "model": "ThinkPad E14",
+    "category": "Laptop"
+  },
+  {
+    "id": 6,
+    "brand": "Dell",
+    "model": "G15 5515",
+    "category": "Laptop"
+  }
+}
