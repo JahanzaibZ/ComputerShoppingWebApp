@@ -9,13 +9,13 @@ namespace ComputerShoppingWebApp.Models
         public int computerId { get; set; }
 
         [JsonPropertyName("brand")]
-        public int computerBrand { get; set; }
+        public string computerBrand { get; set; }
 
         [JsonPropertyName("model")]
-        public int computerModel { get; set; }
+        public string computerModel { get; set; }
 
         [JsonPropertyName("category")]
-        public int computerCategory { get; set; }
+        public string computerCategory { get; set; }
         
         public override string ToString()
         {
