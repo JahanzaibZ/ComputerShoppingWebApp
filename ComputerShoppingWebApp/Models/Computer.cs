@@ -16,7 +16,13 @@ namespace ComputerShoppingWebApp.Models
 
         [JsonPropertyName("category")]
         public string computerCategory { get; set; }
-        
+
+        [JsonPropertyName("image")]
+        public string computerImage { get; set; }
+
+        [JsonPropertyName("price")]
+        public string computerPrice { get; set; }
+
         public override string ToString()
         {
             return JsonSerializer.Serialize<Computer>(this);
