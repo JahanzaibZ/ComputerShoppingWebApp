@@ -29,6 +29,7 @@ namespace ComputerShoppingWebApp
         {
             services.AddRazorPages();
             services.AddTransient<JsonFileComputerService>();
+            services.AddTransient<cssFileStyleSheetService>();
             services.AddControllers();
         }
 
