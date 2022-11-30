@@ -25,6 +25,16 @@ namespace ComputerShoppingWebApp.Controllers
             return View(await _context.Computer.ToListAsync());
         }
 
+        public IActionResult SearchForm()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> SearchResult(string model)
+        {
+            return View("Index",await _context.Computer.Where(item=>item.Model.Contains(model)).ToListAsync());
+        }
+
         // GET: Computers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
