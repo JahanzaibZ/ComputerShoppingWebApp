@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ComputerShoppingWebApp.Models;
 
 namespace ComputerShoppingWebApp.Data
 {
@@ -12,5 +13,6 @@ namespace ComputerShoppingWebApp.Data
             : base(options)
         {
         }
+        public DbSet<ComputerShoppingWebApp.Models.Computer> Computer { get; set; }
     }
 }
