@@ -1,14 +1,24 @@
 ﻿@model IEnumerable<ComputerShoppingWebApp.Models.Computer>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Home Page";
 }
 
-<h1>Index</h1>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h1>Index</h1>
+@if (SignInManager.IsSignedIn(User)) {
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -49,10 +59,15 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+            @if (SignInManager.IsSignedIn(User)){
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> 
+                <br />
                 <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                
+            }
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a>
             </td>
+            
         </tr>
 }
     </tbody>

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ComputerShoppingWebApp.Data;
 using ComputerShoppingWebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ComputerShoppingWebApp.Controllers
 {
@@ -25,11 +26,18 @@ namespace ComputerShoppingWebApp.Controllers
             return View(await _context.Computer.ToListAsync());
         }
 
+        //GET: Computers/SearchForm
         public IActionResult SearchForm()
         {
             return View();
         }
+        //GET: Computers/SearchForm
+        public async Task<IActionResult> ComputerList()
+        {
+            return View(await _context.Computer.ToListAsync());
+        }
 
+        //GET: Computers
         public async Task<IActionResult> SearchResult(string model)
         {
             return View("Index",await _context.Computer.Where(item=>item.Model.Contains(model)).ToListAsync());
@@ -54,6 +62,8 @@ namespace ComputerShoppingWebApp.Controllers
         }
 
         // GET: Computers/Create
+
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -64,6 +74,7 @@ namespace ComputerShoppingWebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("ID,Brand,Model,Category,URL,Price")] Computer computer)
         {
             if (ModelState.IsValid)
@@ -76,6 +87,7 @@ namespace ComputerShoppingWebApp.Controllers
         }
 
         // GET: Computers/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -96,6 +108,7 @@ namespace ComputerShoppingWebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Brand,Model,Category,URL,Price")] Computer computer)
         {
             if (id != computer.ID)
@@ -127,6 +140,7 @@ namespace ComputerShoppingWebApp.Controllers
         }
 
         // GET: Computers/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -147,12 +161,17 @@ namespace ComputerShoppingWebApp.Controllers
         // POST: Computers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var computer = await _context.Computer.FindAsync(id);
             _context.Computer.Remove(computer);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Privacy()
+        {
+            return View();
         }
 
         private bool ComputerExists(int id)

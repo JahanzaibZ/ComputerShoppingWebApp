@@ -63,7 +63,7 @@ namespace ComputerShoppingWebApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Computers}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

@@ -1,0 +1,22 @@
+﻿@model IEnumerable<ComputerShoppingWebApp.Models.Computer>
+
+
+@{
+    ViewData["Title"] = "Computer List";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Computer List</h1>
+</div>
+
+<div class="row">
+    @foreach (var computer in Model)
+    {
+        <div class="col-lg-3 col-md-6 col-sm-12" style="margin-bottom:70px;">
+            <img src="@computer.URL" alt="@computer.Brand @computer.Model" style="width:90%; height:75%; display:block; margin:0 auto;" />
+            <span style="display:block; text-align:center; font-size:20px; color:black">@computer.Brand @computer.Model</span>
+            <span style="display:block; text-align:center; font-size:16px; color:grey">Rs. @computer.Price</span>
+            <span style="display:block; width:90%; margin:0 auto"><input style="display:inline; width:50%; text-align:center" type="number" name="quantity" value="" placeholder="0" /><button style="display:inline; width:50%">Add to cart</button></span>
+        </div>
+    }
+</div>
