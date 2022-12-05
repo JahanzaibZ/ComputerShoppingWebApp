@@ -4,14 +4,16 @@ using ComputerShoppingWebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ComputerShoppingWebApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221205103953_sellerEntityAdded")]
+    partial class sellerEntityAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,9 +43,6 @@ namespace ComputerShoppingWebApp.Data.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<int>("SellerID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Specifications")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -53,8 +52,6 @@ namespace ComputerShoppingWebApp.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("SellerID");
 
                     b.ToTable("Computer");
                 });
@@ -273,17 +270,6 @@ namespace ComputerShoppingWebApp.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("ComputerShoppingWebApp.Models.Computer", b =>
-                {
-                    b.HasOne("ComputerShoppingWebApp.Models.Seller", "ComputerSeller")
-                        .WithMany()
-                        .HasForeignKey("SellerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ComputerSeller");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

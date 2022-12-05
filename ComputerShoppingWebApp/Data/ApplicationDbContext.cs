@@ -14,5 +14,6 @@ namespace ComputerShoppingWebApp.Data
         {
         }
         public DbSet<ComputerShoppingWebApp.Models.Computer> Computer { get; set; }
+        public DbSet<ComputerShoppingWebApp.Models.Seller> Seller { get; set; }
     }
 }
