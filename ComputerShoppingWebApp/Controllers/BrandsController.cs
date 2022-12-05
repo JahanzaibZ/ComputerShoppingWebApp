@@ -7,43 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ComputerShoppingWebApp.Data;
 using ComputerShoppingWebApp.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace ComputerShoppingWebApp.Controllers
 {
-    public class ComputersController : Controller
+    public class BrandsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ComputersController(ApplicationDbContext context)
+        public BrandsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Computers
+        // GET: Brands
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Computer.ToListAsync());
+            return View(await _context.Brand.ToListAsync());
         }
 
-        //GET: Computers/SearchForm
-        public IActionResult SearchForm()
-        {
-            return View();
-        }
-        //GET: Computers
-        public async Task<IActionResult> ComputerList()
-        {
-            return View(await _context.Computer.ToListAsync());
-        }
-
-        //GET: Computers
-        public async Task<IActionResult> SearchResult(string model)
-        {
-            return View("Index",await _context.Computer.Where(item=>item.Model.Contains(model)).ToListAsync());
-        }
-
-        // GET: Computers/Details/5
+        // GET: Brands/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -51,43 +33,39 @@ namespace ComputerShoppingWebApp.Controllers
                 return NotFound();
             }
 
-            var computer = await _context.Computer
+            var brand = await _context.Brand
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (computer == null)
+            if (brand == null)
             {
                 return NotFound();
             }
 
-            return View(computer);
+            return View(brand);
         }
 
-        // GET: Computers/Create
-
-        [Authorize]
+        // GET: Brands/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Computers/Create
+        // POST: Brands/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> Create([Bind("ID,Brand,Model,Category,Specifications,URL,Price")] Computer computer)
+        public async Task<IActionResult> Create([Bind("ID,Name,LogoURL,HeadOffice")] Brand brand)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(computer);
+                _context.Add(brand);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(computer);
+            return View(brand);
         }
 
-        // GET: Computers/Edit/5
-        [Authorize]
+        // GET: Brands/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -95,23 +73,22 @@ namespace ComputerShoppingWebApp.Controllers
                 return NotFound();
             }
 
-            var computer = await _context.Computer.FindAsync(id);
-            if (computer == null)
+            var brand = await _context.Brand.FindAsync(id);
+            if (brand == null)
             {
                 return NotFound();
             }
-            return View(computer);
+            return View(brand);
         }
 
-        // POST: Computers/Edit/5
+        // POST: Brands/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Brand,Model,Category,Specifications,URL,Price")] Computer computer)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,LogoURL,HeadOffice")] Brand brand)
         {
-            if (id != computer.ID)
+            if (id != brand.ID)
             {
                 return NotFound();
             }
@@ -120,12 +97,12 @@ namespace ComputerShoppingWebApp.Controllers
             {
                 try
                 {
-                    _context.Update(computer);
+                    _context.Update(brand);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ComputerExists(computer.ID))
+                    if (!BrandExists(brand.ID))
                     {
                         return NotFound();
                     }
@@ -136,11 +113,10 @@ namespace ComputerShoppingWebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(computer);
+            return View(brand);
         }
 
-        // GET: Computers/Delete/5
-        [Authorize]
+        // GET: Brands/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -148,35 +124,30 @@ namespace ComputerShoppingWebApp.Controllers
                 return NotFound();
             }
 
-            var computer = await _context.Computer
+            var brand = await _context.Brand
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (computer == null)
+            if (brand == null)
             {
                 return NotFound();
             }
 
-            return View(computer);
+            return View(brand);
         }
 
-        // POST: Computers/Delete/5
+        // POST: Brands/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var computer = await _context.Computer.FindAsync(id);
-            _context.Computer.Remove(computer);
+            var brand = await _context.Brand.FindAsync(id);
+            _context.Brand.Remove(brand);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
-        private bool ComputerExists(int id)
+        private bool BrandExists(int id)
         {
-            return _context.Computer.Any(e => e.ID == id);
+            return _context.Brand.Any(e => e.ID == id);
         }
     }
 }

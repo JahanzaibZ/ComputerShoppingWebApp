@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ComputerShoppingWebApp.Models
@@ -26,9 +27,11 @@ namespace ComputerShoppingWebApp.Models
         [Required]
         public int Price { get; set; }
 
-        [ForeignKey("ComputerSeller")]
-        public int SellerID { get; set; }
+        [ForeignKey("ComputerBrand")]
+        public int BrandID { get; set; }
 
-        public virtual Seller ComputerSeller { get; set; }
+        public virtual Brand ComputerBrand { get; set; }
+
+        public List<Seller> Sellers { get; set; }
     }
 }

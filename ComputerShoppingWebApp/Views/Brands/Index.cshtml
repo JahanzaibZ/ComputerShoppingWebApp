@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<ComputerShoppingWebApp.Models.Brand>
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Brands</h1>
+</div>
+
+<h1>List</h1>
+@if (SignInManager.IsSignedIn(User))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LogoURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HeadOffice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <img src="@item.LogoURL" alt="@item.Name" style="width:100px;" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeadOffice)
+            </td>
+                <td>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                        <br />
+                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+
+                    }
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -7,43 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ComputerShoppingWebApp.Data;
 using ComputerShoppingWebApp.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace ComputerShoppingWebApp.Controllers
 {
-    public class ComputersController : Controller
+    public class SellersController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ComputersController(ApplicationDbContext context)
+        public SellersController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Computers
+        // GET: Sellers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Computer.ToListAsync());
+            return View(await _context.Seller.ToListAsync());
         }
 
-        //GET: Computers/SearchForm
-        public IActionResult SearchForm()
-        {
-            return View();
-        }
-        //GET: Computers
-        public async Task<IActionResult> ComputerList()
-        {
-            return View(await _context.Computer.ToListAsync());
-        }
-
-        //GET: Computers
-        public async Task<IActionResult> SearchResult(string model)
-        {
-            return View("Index",await _context.Computer.Where(item=>item.Model.Contains(model)).ToListAsync());
-        }
-
-        // GET: Computers/Details/5
+        // GET: Sellers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -51,43 +33,39 @@ namespace ComputerShoppingWebApp.Controllers
                 return NotFound();
             }
 
-            var computer = await _context.Computer
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (computer == null)
+            var seller = await _context.Seller
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (seller == null)
             {
                 return NotFound();
             }
 
-            return View(computer);
+            return View(seller);
         }
 
-        // GET: Computers/Create
-
-        [Authorize]
+        // GET: Sellers/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Computers/Create
+        // POST: Sellers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> Create([Bind("ID,Brand,Model,Category,Specifications,URL,Price")] Computer computer)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Seller seller)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(computer);
+                _context.Add(seller);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(computer);
+            return View(seller);
         }
 
-        // GET: Computers/Edit/5
-        [Authorize]
+        // GET: Sellers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -95,23 +73,22 @@ namespace ComputerShoppingWebApp.Controllers
                 return NotFound();
             }
 
-            var computer = await _context.Computer.FindAsync(id);
-            if (computer == null)
+            var seller = await _context.Seller.FindAsync(id);
+            if (seller == null)
             {
                 return NotFound();
             }
-            return View(computer);
+            return View(seller);
         }
 
-        // POST: Computers/Edit/5
+        // POST: Sellers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Brand,Model,Category,Specifications,URL,Price")] Computer computer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Seller seller)
         {
-            if (id != computer.ID)
+            if (id != seller.Id)
             {
                 return NotFound();
             }
@@ -120,12 +97,12 @@ namespace ComputerShoppingWebApp.Controllers
             {
                 try
                 {
-                    _context.Update(computer);
+                    _context.Update(seller);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ComputerExists(computer.ID))
+                    if (!SellerExists(seller.Id))
                     {
                         return NotFound();
                     }
@@ -136,11 +113,10 @@ namespace ComputerShoppingWebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(computer);
+            return View(seller);
         }
 
-        // GET: Computers/Delete/5
-        [Authorize]
+        // GET: Sellers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -148,35 +124,30 @@ namespace ComputerShoppingWebApp.Controllers
                 return NotFound();
             }
 
-            var computer = await _context.Computer
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (computer == null)
+            var seller = await _context.Seller
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (seller == null)
             {
                 return NotFound();
             }
 
-            return View(computer);
+            return View(seller);
         }
 
-        // POST: Computers/Delete/5
+        // POST: Sellers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var computer = await _context.Computer.FindAsync(id);
-            _context.Computer.Remove(computer);
+            var seller = await _context.Seller.FindAsync(id);
+            _context.Seller.Remove(seller);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
-        private bool ComputerExists(int id)
+        private bool SellerExists(int id)
         {
-            return _context.Computer.Any(e => e.ID == id);
+            return _context.Seller.Any(e => e.Id == id);
         }
     }
 }
