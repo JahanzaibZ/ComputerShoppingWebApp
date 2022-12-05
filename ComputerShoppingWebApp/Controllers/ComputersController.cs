@@ -75,7 +75,7 @@ namespace ComputerShoppingWebApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("ID,Brand,Model,Category,URL,Price")] Computer computer)
+        public async Task<IActionResult> Create([Bind("ID,Brand,Model,Category,Specifications,URL,Price")] Computer computer)
         {
             if (ModelState.IsValid)
             {
@@ -109,7 +109,7 @@ namespace ComputerShoppingWebApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Brand,Model,Category,URL,Price")] Computer computer)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Brand,Model,Category,Specifications,URL,Price")] Computer computer)
         {
             if (id != computer.ID)
             {

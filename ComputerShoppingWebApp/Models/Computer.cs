@@ -13,6 +13,8 @@ namespace ComputerShoppingWebApp.Models
         [Required]
         public string Category { get; set; }
         [Required]
+        public string Specifications { get; set; }
+        [Required]
         public string URL { get; set; }
         [Required]
         public int Price { get; set; }
